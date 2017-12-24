@@ -4,21 +4,18 @@
 
 {% block content %}
 <div class="row text-center vertical-middle-sm">
-    <h1>我的博客</h1>
+    <h1>{{ artical.title }}</h1>
 </div>
 <div class="row">
     <div class="col-xs-12 col-md-8">
-        <ul>
-            {% for blog in blogs %}
-            <li><a href="{{blog.id }}">{{ blog.title }}</a></li>
-            {% endfor %}
-        </ul>
+        <p class="text-center"><span>{{ artical.author.username }}</span><span style="margin-left:20px">{{publish}}</span></p>
+        <div> {{ article.body }} </div>
     </div>
     <div class="col-xs-6 col-md-4">
         <h2>广告</h2>
         <p>学习</p>
-        <!--<img src="http://www.mrwallpaper.com/wallpapers/Fluffy-Cat.jpg" width="200px">-->
         <img src="https://mrwallpaper.com/wp-content/uploads/Spice-And-Wolf-Holo-Anime-970x606.jpg" width="200px">
     </div>
+
 </div>
 {% endblock %}

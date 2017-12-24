@@ -1,4 +1,4 @@
-{% extend "base.html" %}
+{% extends "base.html" %}
 
 {% block title %} blog title {% endblock %}
 
@@ -10,14 +10,15 @@
     <div class="col-xs-12 col-md-8">
         <ul>
             {% for blog in blogs %}
-                <li>{{ blog.title }}</li>
+            <li><a href="{{ blog.id }}">{{ blog.title }}</a></li>
             {% endfor %}
         </ul>
     </div>
     <div class="col-xs-6 col-md-4">
         <h2>广告</h2>
         <p>学习</p>
-        <img src="http://www.mrwallpaper.com/wallpapers/Fluffy-Cat.jpg" width="200px">
+        <!--<img src="http://www.mrwallpaper.com/wallpapers/Fluffy-Cat.jpg" width="200px">-->
+        <img src="https://mrwallpaper.com/wp-content/uploads/Spice-And-Wolf-Holo-Anime-970x606.jpg" width="200px">
     </div>
 </div>
 {% endblock %}
