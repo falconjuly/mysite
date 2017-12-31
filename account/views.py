@@ -35,6 +35,7 @@ def register(request):
             new_profile = user_profile_form.save(commit=False)
             new_profile.user = new_user
             new_profile.save()
+            UserInfo.objects.create(user=new_user)
             return HttpResponse("successfully")
         else:
             return HttpResponse('sorry you can not register')
@@ -50,3 +51,7 @@ def myself(request):
     user = User.objects.get(username=request.user.username)
     userprofile = UserProfile.objects.get(user=user)
     userinfo = UserInfo.objects.get()
+    return render(request, "account/myself.html",{"user":user,
+                                                  "userinfo":userinfo,
+                                                  "userprofile":userprofile
+                                                  })
