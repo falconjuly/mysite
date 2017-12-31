@@ -3,6 +3,8 @@ from django.http import HttpRequest,HttpResponse
 from django.contrib.auth import authenticate,login
 from .forms import LoginForm,RegisterationForm,UserProfileForm
 
+from django.contrib.auth.decorators import login_required
+from .models import User,UserProfile,UserInfo
 # Create your views here.
 
 def user_login(request):
@@ -41,3 +43,10 @@ def register(request):
         user_profile_form = UserProfileForm()
         return render(request, "account/register.html", { "form": user_form,
                                                           "profile": user_profile_form})
+
+
+@login_required()
+def myself(request):
+    user = User.objects.get(username=request.user.username)
+    userprofile = UserProfile.objects.get(user=user)
+    userinfo = UserInfo.objects.get()

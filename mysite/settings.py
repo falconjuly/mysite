@@ -126,4 +126,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR,'static'),
 )
 
+# Login Settings
 LOGIN_REDIRECT_URL = '/blog/'
+LOGIN_URL = '/account/'

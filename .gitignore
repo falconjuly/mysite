@@ -111,4 +111,3 @@ db.sqlite3
 
 *.bak
 *.pyc
-db.sqlite3
