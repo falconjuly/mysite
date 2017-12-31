@@ -20,4 +20,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^blog/',include('blog.url', namespace='blog', app_name='blog')),
     url(r'^account/',include('account.url', namespace='account', app_name='account')),
+    url(r'^article/',include('article.url', namespace='article', app_name='article')),
 ]
