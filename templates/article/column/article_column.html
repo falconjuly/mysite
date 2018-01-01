@@ -20,6 +20,10 @@
         <tr>
             <td>{{ forloop.counter }}</td>
             <td>{{ column.column }}</td>
+            <td>
+                <a href="javascript:" name="edit" onclick="edit_column(this, {{column.id}})"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a href="javascript:" name="delete" onclick="del_column(this,{{ column.id }})"><span class="glyphicon glyphicon-trash" style="margin-left:20px"></span></a>
+            </td>
             <td>---</td>
         </tr>
         {% empty %}
@@ -27,6 +31,8 @@
         {% endfor %}
     </table>
 </div>
-</div>
+<script rel="script" type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script rel="script" type="text/javascript" src="{% static 'js/layer/layer.js' %}"></script>
+<script rel="script" type="text/javascript" src="{% static 'js/article/column.js' %}"></script>
 
 {% endblock %}
