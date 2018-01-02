@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse
+from django.views.decorators.http import require_POST
+from django.http import HttpResponse,JsonResponse
 
 from .models import ArticleColumn
 from .forms import ArticleColumnForm
@@ -34,3 +35,39 @@ def article_column(request):
         else:
             ArticleColumn.objects.create(user=request.user, column=column_name)
             return HttpResponse('1')
+
+@login_required()
+@require_POST
+@csrf_exempt
+def rename_article_column(request):
+    __response = dict()
+    column_name = request.POST['column_name']
+    column_id = request.POST['column_id']
+    try:
+        line = ArticleColumn.objects.get(id=column_id)
+        line.column = column_name
+        line.save()
+        # return HttpResponse("1")
+        __response['status'] = True
+    except:
+        # return HttpResponse("0")
+        __response['status'] = False
+    return JsonResponse(__response)
+
+
+
+@login_required()
+@require_POST
+@csrf_exempt
+def del_article_column(request):
+    __response = dict()
+    column_id = request.POST['column_id']
+    try:
+        line = ArticleColumn.objects.get(id=column_id)
+        line.delete()
+        # return HttpResponse('1')
+        __response['status'] = True
+    except:
+        # return HttpResponse('2')
+        __response['status'] = False
+    return JsonResponse(__response)
