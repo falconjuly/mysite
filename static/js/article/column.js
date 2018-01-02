@@ -60,7 +60,7 @@ function edit_column(the, column_id){
             },
 
         });
-}
+    }
 
 function del_column(the, column_id){
     var url = location.host
@@ -70,14 +70,23 @@ function del_column(the, column_id){
         skin: "layui-layer-rim",
         area: ["400px", "200px"],
         title: "删除栏目",
-        content: '<div class="text-center" style="margin-top:20px"><p>请编辑的栏目名称</p><p><input type="text" id="new_name" value="'+name+'"></p></div>',
+        content: '<div class="text-center" style="margin-top:20px"><p>是否确定删除{'+name+'}栏目</p></div>',
         btn: ['submit', 'cancel'],
-        yes: function(index, layero){
-            new_name = $(#new_name).val()
+        yes: function(){
             $.ajax({
-                url: 'http://'+url+'/article/article-column/',
-            })
-        }
+                url: 'http://'+url+'/article/del-column/',
+                type: "POST",
+                data: {"column_id": column_id},
+                success: function(response){
+                        if(response['status']==true){
+                            layer.msg("good");
+                            parent.location.reload();
+                        }else{
+                            layer.msg("新的名称没有保存，修改失败。")
+                        }
+                    }
+                });
+            },
 
-    })
-}
+        });
+    }
