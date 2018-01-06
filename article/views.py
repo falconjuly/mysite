@@ -4,8 +4,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse,JsonResponse
 
-from .models import ArticleColumn
-from .forms import ArticleColumnForm
+from .models import ArticleColumn,ArticlePost
+from .forms import ArticleColumnForm,ArticlePostForm
 
 # Create your views here.
 
@@ -71,3 +71,29 @@ def del_article_column(request):
         # return HttpResponse('2')
         __response['status'] = False
     return JsonResponse(__response)
+
+@login_required()
+@csrf_exempt
+def article_post(request):
+    __response = dict()
+    if request.method == 'POST':
+        article_post_form = ArticlePostForm(data=request.POST)
+        if article_post_form.is_valid():
+            cd = article_post_form.cleaned_data
+            try:
+                new_article = article_post_form.save(commit=False)
+                new_article.author = request.user
+                new_article.column = request.user.article_column.get(id=request.POST['column_id'])
+                new_article.save()
+                __response['status'] = True
+            except:
+                __response['status'] = False
+        else:
+            __response['status'] = False
+        return JsonResponse(__response)
+    else:
+        article_post_form = ArticlePostForm()
+        article_columns = request.user.article_column.all()
+        return render(request, "article/column/article_post.html", {"article_post_form": article_post_form,
+                                                                    "article_columns":article_columns
+                                                                    })

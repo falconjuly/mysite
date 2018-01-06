@@ -1,0 +1,41 @@
+{% extends "article/base.html" %}
+
+{% load staticfiles %}
+
+{% block title %} article column {% endblock %}
+
+{% block content %}
+
+<div style="margin-left: 10px">
+    <form class="form-horizontal" action="." method="post">{% csrf_token %}
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-2 text-right"><span>标题:</span></div>
+            <div class="col-md-10 text-left">{{ article_post_form.title }}</div>
+        </div>
+        <div class="row" style="margin-top: 10px">
+            <div class="col-md-2 text-right" ><span>栏目:</span></div>
+            <div class="col-md-10 text-left">
+                <select name="" id="which_column">
+                    {% for column in article_columns %}
+                    <option value="{{column.id}}">{{ column.column }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px">
+            <div class="col-md-2 text-right"><span>内容:</span></div>
+            <div class="col-md-10 text-left">{{ article_post_form.body }}</div>
+        </div>
+        <div class="row">
+            <!--<input type="submit" value="success">-->
+            <!--<input type="submit" class="btn btn-primary btn-lg" value="Publish" onclick="publish_article()">-->
+            <input type="button" class="btn btn-primary btn-lg" value="Publish" onclick="publish_article()">
+        </div>
+    </form>
+
+</div>
+<script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/layer/layer.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/article/post.js' %}"></script>
+
+{% endblock %}}
